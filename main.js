@@ -4,47 +4,72 @@ String.prototype.replaceAt = function (index, replacement) {
 }
 
 const input = require('sync-input')
-
 const worlds = ["python", "java", "swift", "javascript"]
-let worldRND = getRandomEl(worlds);
+let worldRND = getRndEl(worlds);
 let mask = '-'.repeat(worldRND.length)
 
 let attempts = 8;
+let letter = '';
+let letterInputAll = '';
+
 
 console.log(`H A N G M A N`)  // ${attempts} attempts
 game(attempts)
-console.log('\nThanks for playing!');
 
-function getRandomEl(array) {
+
+function getRndEl(array) {
     let index = Math.floor(Math.random() * array.length);
     return array[index];
 }
 
 function game(attempts) {
-    let letter = ''
-     while (attempts--) {
-            letter = input(`\n${mask}\nInput a letter: `);
-            let ind = worldRND.indexOf(letter)
+    
+    while (attempts--) {
+        letter = input(`\n${mask}\nInput a letter: `);
 
-            if (worldRND.includes(letter)) {
-                if (mask.includes(letter)) {
-                    console.log(`No improvements.`)  // ${attempts} attempts;
-                    if (!attempts) console.log("You lost!");
-                    continue;
-                }
-                for (ind; ind < worldRND.length; ind++) {
-                    if (worldRND[ind] === letter) mask = mask.replaceAt(ind, letter);
+        if (!validateLetter(letter)) {
+            attempts++;
+            continue;
+        }
 
-                }
-                attempts++;
-            } else {
-                console.log(`That letter doesn't appear in the word.`)  // ${attempts} attempts
-                if (!attempts) console.log("You lost!");
+        if (worldRND.includes(letter)) {
+
+            for (let ind = worldRND.indexOf(letter); ind < worldRND.length; ind++) {
+                if (worldRND[ind] === letter) mask = mask.replaceAt(ind, letter);
             }
-            if (worldRND === mask) {
-                console.log(`\n${worldRND}\nYou guessed the word!\nYou survived!`);
-                break;
-            }
+            attempts++;
+        } else {
+            console.log(`That letter doesn't appear in the word.  // ${attempts} attempts`)
 
         }
+
+        if (!attempts) console.log("You lost!");
+        if (worldRND === mask) {
+            console.log(`You guessed the word ${worldRND}!\nYou survived!`);
+            break;
+        }
+        letterInputAll += letter;
+    }
+}
+
+function validateLetter(letter) {
+    const abc = new RegExp('[a-z]');
+    
+    if (!letter || letter.length > 1) {
+        console.log("Please, input a single letter.");
+        return false;
+    }
+
+    if (!abc.test(letter)) {
+        console.log("Please, enter a lowercase letter from the English alphabet.");
+        return false;
+    }
+
+    if (letterInputAll.includes(letter)) {
+        console.log("You've already guessed this letter.");
+        if (!attempts) console.log("You lost!");
+        return false;
+    }
+
+    return true;
 }
