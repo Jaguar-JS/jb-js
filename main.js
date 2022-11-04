@@ -22,29 +22,29 @@ function getRandomEl(array) {
 
 function game(attempts) {
     let letter = ''
- while (attempts--) {
-        letter = input(`\n${mask}\nInput a letter: `);
-        let ind = worldRND.indexOf(letter)
+     while (attempts--) {
+            letter = input(`\n${mask}\nInput a letter: `);
+            let ind = worldRND.indexOf(letter)
 
-        if (worldRND.includes(letter)) {
-            if (mask.includes(letter)) {
-                console.log(`No improvements.  // ${attempts} attempts`);
+            if (worldRND.includes(letter)) {
+                if (mask.includes(letter)) {
+                    console.log(`No improvements.`)  // ${attempts} attempts;
+                    if (!attempts) console.log("You lost!");
+                    continue;
+                }
+                for (ind; ind < worldRND.length; ind++) {
+                    if (worldRND[ind] === letter) mask = mask.replaceAt(ind, letter);
+
+                }
+                attempts++;
+            } else {
+                console.log(`That letter doesn't appear in the word.`)  // ${attempts} attempts
                 if (!attempts) console.log("You lost!");
-                continue;
             }
-            for (ind; ind < worldRND.length; ind++) {
-                if (worldRND[ind] === letter) mask = mask.replaceAt(ind, letter);
-
+            if (worldRND === mask) {
+                console.log(`\n${worldRND}\nYou guessed the word!\nYou survived!`);
+                break;
             }
-            attempts++;
-        } else {
-            console.log(`That letter doesn't appear in the word.`)  // ${attempts} attempts
-            if (!attempts) console.log("You lost!");
-        }
-        if (worldRND === mask) {
-            console.log(`\n${worldRND}\nYou guessed the word!\nYou survived!`);
-            break;
-        }
 
-    }
+        }
 }
