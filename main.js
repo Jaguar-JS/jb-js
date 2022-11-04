@@ -1,6 +1,6 @@
 input = require('sync-input');
 
-camel = `
+const camel = `
 Switching on the camera in the camel habitat...
  ___.-''''-.
 /___  @    |
@@ -21,7 +21,7 @@ Switching on the camera in the camel habitat...
            /_I      L_I   L_I     /_I
 Look at that! Our little camel is sunbathing!`;
 
-lion = `
+const lion = `
 Switching on the camera in the lion habitat...
                                                ,w.
                                              ,YWMMw  ,M  ,
@@ -39,7 +39,7 @@ WMMm__,-'.'     /      _.\\      F'''-+,,   ;_,_.dMMMMMMMM[,_ / \`=_}
         (--, )                \`,_ / \`) \\/"")      ^"      \`-, -;"\\:
 The lion is roaring!`;
 
-deer = `
+const deer = `
 Switching on the camera in the deer habitat...
    /|       |\\
 \`__\\\\       //__'
@@ -67,7 +67,7 @@ Switching on the camera in the deer habitat...
           /_//_/           /_/   /_/
 Our 'Bambi' looks hungry. Let's go to feed it!`;
 
-goose = `
+const goose = `
 Switching on the camera in the goose habitat...
 
                                     _
@@ -83,7 +83,7 @@ Switching on the camera in the goose habitat...
     \`------------------------------------------
 The goose is staring intently at you... Maybe it's time to change the channel?`;
 
-bat = `
+const bat = `
 Switching on the camera in the bat habitat...
 _________________               _________________
  ~-.              \\  |\\___/|  /              .-~
@@ -98,7 +98,7 @@ _________________               _________________
                    V         V
 This bat looks like it’s doing fine.`;
 
-rabbit = `
+const rabbit = `
 Switching on the camera in the rabbit habitat...
          ,
         /|      __
@@ -120,13 +120,33 @@ Switching on the camera in the rabbit habitat...
  ]\\      _\\    /"\\
 (" ~----( ~   Y.  )
 It looks like we will soon have more rabbits!`;
-const habitats = [camel, lion, deer, goose, bat, rabbit, 'Error']
-answer = input("Please enter the number of the habitat you would like to view:");
+const zoo = [camel, lion, deer, goose, bat, rabbit];
 
-if (Number(answer) < habitats.length) {
-    console.log(habitats[answer])
-} else {
-    console.log(habitats[habitats.length - 1])
+let answer = '';
+let loop = 'start';
+
+function main() {
+    while (loop !== 'exit') {
+        answer = input("Please enter the number of the habitat you would like to view: ")
+            .toLowerCase();
+        if (!isBeastShow(answer)) quit(answer)
+    }
 }
-console.log(`---
-You've reached the end of the program. To check another habitat, please restart the watcher.`);
+
+function isBeastShow(answer) {
+    const numberAnswer = Math.abs(Number(answer));
+    if (numberAnswer < zoo.length) {
+        console.log(zoo[numberAnswer], '\n');
+        return true
+    }
+    return false
+}
+
+function quit(answer) {
+    if (answer === 'exit') {
+        loop = answer;
+        console.log("See you later!");
+    }
+}
+
+main()
