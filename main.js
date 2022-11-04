@@ -10,7 +10,6 @@ let worldRND = getRandomEl(worlds);
 let mask = '-'.repeat(worldRND.length)
 
 let attempts = 8;
-let letter = ''
 
 console.log(`H A N G M A N`)  // ${attempts} attempts
 game(attempts)
@@ -22,6 +21,7 @@ function getRandomEl(array) {
 }
 
 function game(attempts) {
+    let letter = ''
     while (attempts--) {
         letter = input(`\n${mask}\nInput a letter: `);
         let ind = worldRND.indexOf(letter)
