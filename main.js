@@ -48,6 +48,7 @@ const buy = (countCupsCoffee, inputVariantCoffee, {water, milk, coffeeBeans, sug
     if (answerOfSugar.toLowerCase() === "y") {
         sugar -= Number(input("How many sugars? (5g per serving)\n")) * 5 * countCupsCoffee
     }
+
     water -= coffeeMachine[inputVariantCoffee].water * countCupsCoffee;
     milk -= coffeeMachine[inputVariantCoffee].milk * countCupsCoffee;
     coffeeBeans -= coffeeMachine[inputVariantCoffee].coffeeBeans * countCupsCoffee;
@@ -67,7 +68,14 @@ const buy = (countCupsCoffee, inputVariantCoffee, {water, milk, coffeeBeans, sug
         const resource = {water, milk, coffeeBeans, sugar, cups};
         for (let product in resource) {
             if (resource[product] < 0) {
-                return console.log(`Sorry, not enough ${product}!\n`);
+                let ing = coffeeMachine[inputVariantCoffee][product]
+                let minCups = countCupsCoffee
+                while (minResources < 0) {
+                    minCups -= 1
+                    minResources += ing
+                }
+                console.log(`Sorry, not enough ${product}!\n`);
+                return console.log(`I can make only ${minCups} amount of coffee cups!\n`);
             }
         }
     }
@@ -106,17 +114,19 @@ const remaining = ({name, water, milk, coffeeBeans, sugar, cups, money}) => {
     console.log(`${cups} disposable cups`);
     console.log(`$${money} of money\n`);
 };
+
 function init() {
     let exit = true;
     while (exit) {
-        let inputAction = input("Write action (buy, fill, take, remaining, exit):\n");
+        let inputAction = input("Write action (buy(b), fill(f), take(t), remaining(r), exit(e)):\n");
         switch (inputAction) {
             case "buy":
+            case "b":
                 console.log();
                 let inputVariantCoffee = input(
-                    "What do you want to buy?\n 1 - espresso, 2 - latte, 3 - cappuccino, 4 -americano, back - to main menu:\n"
-                );
-                if (inputVariantCoffee === "back") {
+                    "What do you want to buy?\n 1 - espresso, 2 - latte, 3 - cappuccino, 4 -americano,\n back(b) - to main menu:\n"
+                ).toLowerCase();
+                if (inputVariantCoffee === "back" || inputVariantCoffee === "b") {
                     continue;
                 } else {
                     let countCupsCoffee = Number(input(
@@ -127,15 +137,19 @@ function init() {
                 }
                 break;
             case "fill":
+            case "f":
                 fill();
                 break;
             case "take":
+            case "t":
                 take();
                 break;
             case "remaining":
+            case "r":
                 remaining(coffeeMachine[0]);
                 break;
             case "exit":
+            case "e":
                 console.log('Goodbye!');
                 exit = false;
                 break;
