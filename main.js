@@ -1,10 +1,34 @@
 const input = require('sync-input')
+const oneCoffee = {
+    water: 200,
+    milk: 50,
+    coffeeBeans: 15
+}
 
-const water=200
-const milk=50
-const coffeeBeans=15
-let countCups =input("Write how many cups of coffee you will need:\n");
+const minCups = () => {
+    let inputWater = Number(input("Write how many ml of water the coffee machine has:\n"));
+    let inputMilk = Number(input("Write how many ml of milk the coffee machine has:\n"));
+    let inputCoffeeBeans = Number(input("Write how many grams of coffee beans the coffee machine has:\n"));
+    const {water, milk, coffeeBeans} = oneCoffee
+    const cupsWater = Math.floor(inputWater / water)
+    const cupsMilk = Math.floor(inputMilk / milk)
+    const cupsCoffeeBeans = Math.floor(inputCoffeeBeans / coffeeBeans)
 
-console.log(`For ${countCups} cups of coffee you will need:`);
+    return Math.min(cupsWater, cupsMilk, cupsCoffeeBeans)
+}
 
-console.log(`${countCups*water} ml of water\n${countCups*milk} ml of milk\n${countCups*coffeeBeans} g of coffee beans`);
+const cupsMachine = minCups()
+
+let inputCups = Number(input("Write how many cups of coffee you will need:\n"));
+
+if (cupsMachine < inputCups) {
+    // Нет, я могу сделать только ${} чашки кофе
+    console.log(`No, I can make only ${cupsMachine} cups of coffee`);
+} else if (inputCups === cupsMachine) {
+    // 'Да, я могу сделать столько кофе'
+    console.log('Yes, I can make that amount of coffee');
+} else {
+    // Да, я могу сделать такое количество кофе (и даже ${} больше этого)
+    console.log(`Yes, I can make that amount of coffee (and even ${cupsMachine - inputCups} more than that)`);
+}
+
