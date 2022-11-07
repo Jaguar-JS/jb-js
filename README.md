@@ -1,2 +1,2 @@
-# Carnival Gift Shop
-Welcome to the carnival gift shop! You’ve won many tickets at the carnival; it’s time to spend them! In this project, you will write the program to show the list of gifts, the tickets you have, and buy the gift you want. In addition, you will improve your JavaScript skills and get more comfortable with it!
+# Coffee Machine
+What can be better than a cup of coffee during a break? Two cups. Press a couple of buttons on the machine, and, voilà, a burst of raw energy is in your hands. But first, we should teach the machine how to do it. In this project, you will work on a coffee machine simulator. This machine uses regular ingredients — coffee, milk, and plastic cups. Should it run out of something, it will show you a notification. Our device will serve espresso, cappuccino, and latte. And since nothing is for free, it will also charge coffee lovers for a cup.
