@@ -1,3 +1,6 @@
+console.log(`WELCOME TO THE CARNIVAL GIFT SHOP!
+Hello friend! Thank you for visiting the carnival!`);
+
 const input = require('sync-input');
 
 let startTickets = 0;
@@ -14,25 +17,42 @@ const gifts = [
     {id: 10, name: 'Scary Mask', cost: 75},
 ]
 
-console.log(`WELCOME TO THE CARNIVAL GIFT SHOP!
-Hello friend! Thank you for visiting the carnival!`);
 printGifts(gifts);
-
 let exit = false;
 while (!exit) {
     console.log('What do you want to do?');
     let inpAction = input('1-Buy a gift 2-Add tickets 3-Check tickets 4-Show gifts 5-Exit the shop\n');
     switch (inpAction) {
         case '1':
-            let inpIdGift = parseInt(input('Enter the number of the gift you want to get: '));
-            const {name, cost} = gifts[inpIdGift - 1];
-            console.log(`Here you go, one ${name}!`);
-            console.log(`Total tickets: ${startTickets - cost}\n`);
-            delete gifts[inpIdGift - 1];
+            let inpIdGift = parseInt(input('Enter the number of the gift you want to get: ')) - 1;
+
+            if (inpIdGift >= 0 && inpIdGift < gifts.length) {
+                if (!gifts[inpIdGift]) {
+                    console.log('Wow! There are no gifts to buy.\n');
+                    break;
+                }
+                const {name, cost} = gifts[inpIdGift];
+                if (cost > startTickets) {
+                    console.log('You don\'t have enough tickets to buy this gift.');
+                    console.log(`Total tickets: ${startTickets}\n`);
+                } else {
+                    console.log(`Here you go, one ${name}!`);
+                    console.log(`Total tickets: ${startTickets - cost}\n`);
+                    delete gifts[inpIdGift];
+                }
+            } else {
+                console.log('There is no gift with that number!\n');
+            }
+
             break;
         case '2':
             let amount = parseInt(input('Enter the ticket amount: '))
-            console.log(`Total tickets: ${startTickets + amount}`);
+            if (0 <= amount && amount <= 1000) {
+                startTickets += amount;
+                console.log(`Total tickets: ${startTickets}`);
+            } else {
+                console.log('Please enter a valid number between 0 and 1000.');
+            }
             break;
         case '3':
             console.log(`Total tickets: ${startTickets}`);
@@ -45,7 +65,7 @@ while (!exit) {
             exit = true;
             break;
         default:
-            console.log("Unknown input")
+            console.log('Please enter a valid number!');
             break;
 
     }
@@ -58,3 +78,4 @@ function printGifts(gifts) {
     })
     console.log()
 }
+
