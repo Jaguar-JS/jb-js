@@ -1,16 +1,66 @@
-Example 1: a dialogue with a user might look like this
+Example 1:
 
+Write how many ml of water the coffee machine has:
+> 300
+Write how many ml of milk the coffee machine has:
+> 65
+Write how many grams of coffee beans the coffee machine has:
+> 100
 Write how many cups of coffee you will need:
-> 25
-For 25 cups of coffee you will need:
-5000 ml of water
-1250 ml of milk
-375 g of coffee beans
-Example 2: here is another dialogue
+> 1
+Yes, I can make that amount of coffee
+Example 2:
 
+Write how many ml of water the coffee machine has:
+> 500
+Write how many ml of milk the coffee machine has:
+> 250
+Write how many grams of coffee beans the coffee machine has:
+> 200
 Write how many cups of coffee you will need:
-> 125
-For 125 cups of coffee you will need:
-25000 ml of water
-6250 ml of milk
-1875 g of coffee beans
+> 10
+No, I can make only 2 cups of coffee
+Example 3:
+
+Write how many ml of water the coffee machine has:
+> 1550
+Write how many ml of milk the coffee machine has:
+> 299
+Write how many grams of coffee beans the coffee machine has:
+> 300
+Write how many cups of coffee you will need:
+> 3
+Yes, I can make that amount of coffee (and even 2 more than that)
+Example 4:
+
+Write how many ml of water the coffee machine has:
+> 0
+Write how many ml of milk the coffee machine has:
+> 0
+Write how many grams of coffee beans the coffee machine has:
+> 0
+Write how many cups of coffee you will need:
+> 1
+No, I can make only 0 cups of coffee
+Example 5:
+
+Write how many ml of water the coffee machine has:
+> 0
+Write how many ml of milk the coffee machine has:
+> 0
+Write how many grams of coffee beans the coffee machine has:
+> 0
+Write how many cups of coffee you will need:
+> 0
+Yes, I can make that amount of coffee 
+Example 6:
+
+Write how many ml of water the coffee machine has:
+> 200
+Write how many ml of milk the coffee machine has:
+> 50
+Write how many grams of coffee beans the coffee machine has:
+> 15
+Write how many cups of coffee you will need:
+> 0
+Yes, I can make that amount of coffee (and even 1 more than that)
