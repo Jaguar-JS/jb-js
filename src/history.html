@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magic Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<nav>
+    <div class="container">
+        <ul>
+            <li><a href="index.html" id="form-link">Form</a></li>
+            <li><a href="history.html" id="history-link">History</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container data">
+</div>
+<script>
+    const $container = document.querySelector('.data')
+    const formsData = JSON.parse(window.localStorage.getItem('forms')) || []
+    let len = 0
+
+    window.addEventListener('load', loadingStoreForms)
+
+    document.body.addEventListener('click', e => {
+        if (e.target.className === 'delete-button') {
+            e.target.parentNode.remove();
+            const index = e.target.dataset.index
+            const history = JSON.parse(localStorage.getItem('forms'));
+            history.splice(index, 1);
+            localStorage.setItem('forms', JSON.stringify(history));
+        }
+    });
+
+    function loadingStoreForms() {
+        let $historyCard = ''
+        if (!formsData.length) return $container.appendChild(createEl('p', 'toast', 'History empty'))
+        len = localStorage.getItem('forms').length
+        let keys = Object.keys(formsData[0])
+        formsData.forEach((form, index) => {
+            let formsHTML = ''
+            $historyCard = createEl('div', 'submit-history-card');
+            for (let key of keys) {
+                formsHTML += `<h3>${key.replace('-', ' ')}</h3>
+                               <p class="card-${key}">${form[key]}</p>`
+            }
+            formsHTML += `<button class="delete-button" data-index="${index}">delete</button>`
+            $historyCard.innerHTML = formsHTML
+            $container.appendChild($historyCard)
+        })
+    }
+
+    function createEl(tag, className, content) {
+        const $tag = document.createElement(tag)
+        if (className) {
+            $tag.classList.add(className)
+        }
+        if (typeof content === 'string') {
+            $tag.innerText = content
+        }
+        return $tag;
+    }
+
+    setInterval(() => {
+            if (len !== localStorage.getItem('forms').length) {
+                loadingStoreForms()
+                len = localStorage.getItem('forms').length
+            }
+    }, 1000)
+</script>
+</body>
+</html>
