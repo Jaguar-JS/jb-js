@@ -1,15 +1,10 @@
-# To-Do List
+# Magic Form
 JavaScript for Beginners
 
 # About
-  Have you ever had the feeling that you're missing something important? If so, to-do lists can be of help. A clear outline of your daily tasks will help you stay composed and mentally focused. In this project, you will create a simple to-do list that can manage your tasks.
+  Every good site has an online form to fill out — whether for registering, ordering food,  or making payments. Forms can be very large; if you accidentally reload a page, you can lose all the data. A sad story, isn't it? To resolve this, let's create a form that will retain the data, when it closes unexpectedly.
   
 # Objectives
+  On the history page, each submit card should contain a button with the delete-button class. When users click on this button, delete the card related to the button. Also, don't forget to delete this submission from the local storage, so it won't be shown after reloading.
 
-We need to make our program fetch the to-do list from local storage and display the tasks with their states. Also, we need to make the program update the task list in local storage in the following cases:
-
-1. A task is created.
-2. A task is deleted.
-3. A task is marked as complete.
-
-We don't need the hardcoded tasks anymore, so you can delete them. When users reload the page, the program should store the tasks.
+  When users open two browser tabs with the HTML form and change data in one of them, the data also should be updated in the other tab. Check every 100 ms whether the data in the local storage is changed; if so, update the data in the form.
