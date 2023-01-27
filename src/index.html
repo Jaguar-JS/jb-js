@@ -1,22 +1,86 @@
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"/>
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>To-Do List</title>
-    <link rel="stylesheet" href="style.css"/>
+    <meta charset="UTF-8">
+    <title>Magic Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<nav>
+    <div class="container">
+        <ul>
+            <li><a href="index.html" id="form-link">Form</a></li>
+            <li><a href="history.html" id="history-link">History</a></li>
+        </ul>
+    </div>
+</nav>
 <div class="container">
-    <h1 class="heading">To-Do List</h1>
-    <form action="" id="add-form">
-        <label for="input-task"></label>
-        <input type="text" id="input-task" placeholder="Please enter task name">
-        <button id="add-task-button">add task</button>
+    <form action="">
+        <label for="first-name">First name</label>
+        <input type="text" id="first-name" name='first-name' required>
+
+        <label for="last-name">Last name</label>
+        <input type="text" id="last-name" name='last-name' required>
+
+        <label for="email">Email</label>
+        <input type="text" id="email" name='email' required>
+
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name='phone' required>
+
+        <label for="company">Company</label>
+        <input type="text" id="company" name='company' required>
+
+        <label for="address">Address</label>
+        <input type="text" id="address" name='address' required>
+
+        <button id="submit-button" type="submit" required>
+            Submit form
+        </button>
     </form>
-    <ul id="task-list">
-    </ul>
 </div>
-<script src="main.js"></script>
+<script>
+    const allInputs = document.querySelectorAll('input')
+    const formSubmit = document.querySelector('form');
+    const currentForm = {}
+
+    const loadData=()=>{
+        for (let inp of allInputs) {
+            inp.value = localStorage.getItem(inp.name)
+        }
+    }
+
+    window.addEventListener('load', function () {
+        localStorage.length ?
+            loadData() :
+            console.log('LocalStorage is Empty!')
+
+        document.querySelector('form').addEventListener('input', (e) =>
+            localStorage.setItem(e.target.name, e.target.value))
+    })
+
+    window.addEventListener('storage', () => {
+        for (let inp of allInputs) {
+            document.getElementById(inp.name).value = localStorage.getItem(inp.name)
+        }
+    })
+
+    document.querySelector('form').addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        for (let inp of allInputs) {
+            currentForm[inp.name] = localStorage.getItem(inp.name)
+        }
+
+        const storageForms = JSON.parse(localStorage.getItem('forms')) || [];
+        storageForms.push(currentForm)
+        localStorage.clear()
+        localStorage.setItem('forms', JSON.stringify(storageForms))
+        allInputs.forEach(field => field.value = '')
+    })
+</script>
 </body>
 </html>
