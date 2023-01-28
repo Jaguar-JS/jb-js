@@ -66,12 +66,12 @@
         return $tag;
     }
 
-    setInterval(() => {
+   window.onstorage = () => {
             if (len !== localStorage.getItem('forms').length) {
                 loadingStoreForms()
                 len = localStorage.getItem('forms').length
             }
-    }, 1000)
+    }
 </script>
 </body>
 </html>
